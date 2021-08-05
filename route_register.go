@@ -45,7 +45,7 @@ func doRegister(c *fiber.Ctx, compat bool) error {
 			return c.Status(400).JSON(failed(400, "request bind failed: %v", err))
 		}
 	}
-
+	logger.Infof("DeviceToken: %s; DeviceKey: %s", deviceInfo.DeviceToken, deviceInfo.DeviceKey)
 	if deviceInfo.DeviceKey == "" && deviceInfo.OldDeviceKey != "" {
 		deviceInfo.DeviceKey = deviceInfo.OldDeviceKey
 	}
