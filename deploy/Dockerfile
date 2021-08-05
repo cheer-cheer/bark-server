@@ -4,6 +4,8 @@ COPY . /go/src/github.com/finb/bark-server
 
 WORKDIR /go/src/github.com/finb/bark-server
 
+RUN echo Hello.................
+
 RUN set -ex \
     && apk add git gcc libc-dev \
     && BUILD_VERSION=$(cat version) \
