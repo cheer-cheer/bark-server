@@ -28,6 +28,12 @@ func main() {
 		Version: fmt.Sprintf("%s %s %s", version, commitID, buildDate),
 		Flags: []cli.Flag{
 			&cli.StringFlag{
+				Name:    "port",
+				Usage:   "Server listen address",
+				EnvVars: []string{"LEANCLOUD_APP_PORT"},
+				Value:   "8080"
+			},
+			&cli.StringFlag{
 				Name:    "addr",
 				Usage:   "Server listen address",
 				EnvVars: []string{"BARK_SERVER_ADDRESS"},
@@ -37,7 +43,7 @@ func main() {
 				Name:    "data",
 				Usage:   "Server data storage dir",
 				EnvVars: []string{"BARK_SERVER_DATA_DIR"},
-				Value:   "/data",
+				Value:   "./data",
 			},
 			&cli.StringFlag{
 				Name:    "cert",
@@ -162,12 +168,13 @@ func main() {
 					}
 				}
 			}()
-
-			logger.Infof("Bark Server Listen at: %s", c.String("addr"))
+			
+			addr := "0.0.0.0:" + c.String("port")
+			logger.Infof("Bark Server Listen at: %s", addr)
 			if cert, key := c.String("cert"), c.String("key"); cert != "" && key != "" {
-				return fiberApp.ListenTLS(c.String("addr"), cert, key)
+				return fiberApp.ListenTLS(addr, cert, key)
 			}
-			return fiberApp.Listen(c.String("addr"))
+			return fiberApp.Listen(addr)
 		},
 	}
 
