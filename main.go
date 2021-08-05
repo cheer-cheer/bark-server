@@ -31,7 +31,7 @@ func main() {
 				Name:    "port",
 				Usage:   "Server listen address",
 				EnvVars: []string{"LEANCLOUD_APP_PORT"},
-				Value:   "8080"
+				Value:   "8080",
 			},
 			&cli.StringFlag{
 				Name:    "addr",
