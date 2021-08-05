@@ -24,6 +24,7 @@ const (
 
 func init() {
 	registerRoute("register", func(router *fiber.App) {
+		router.Post("/", func(c *fiber.Ctx) error { return doRegister(c, false) })
 		router.Post("/register", func(c *fiber.Ctx) error { return doRegister(c, false) })
 		router.Get("/register/:device_key", doRegisterCheck)
 	})
@@ -33,7 +34,9 @@ func init() {
 		router.Get("/register", func(c *fiber.Ctx) error { return doRegister(c, true) })
 	})
 }
-
+func doIndex(c *fiber.Ctx, compat bool) error {
+	return c.Status(200).JSON(success())
+}
 func doRegister(c *fiber.Ctx, compat bool) error {
 	var deviceInfo DeviceInfo
 	if compat {
