@@ -24,7 +24,7 @@ const (
 
 func init() {
 	registerRoute("register", func(router *fiber.App) {
-		router.Post("/", func(c *fiber.Ctx) error { return doRegister(c, false) })
+		router.Get("/", func(c *fiber.Ctx) error { return doIndex(c, false) })
 		router.Post("/register", func(c *fiber.Ctx) error { return doRegister(c, false) })
 		router.Get("/register/:device_key", doRegisterCheck)
 	})
